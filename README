@@ -6,8 +6,8 @@ This readme details the file format of covariances, Fisher matrices, data vector
 
 --------------------------------------------------------
 A) Create Figure H2
-- Download the chains from "URL TO TARBALL HERE" and store in subfolder like.
-- Ensure that python 2.7, matplotlib, and chainconsumer are installed. 
+- Download the chains from "https://zenodo.org/communities/lsst-desc" and store in subfolder "like/".
+- Ensure that python 2.7, matplotlib, and chainconsumer are installed 
 - Type "python plot.py"
 --------------------------------------------------------
 
@@ -17,7 +17,7 @@ A) Create Figure H2
 B) Data vector filename conventions:
 The data vectors are created for the the following probe combinations (indicated in their filename): 
 a) shear-shear (shear-shear) 
-b) position-position (pos-pos) 
+b) position-position, aka galaxy clustering (pos-pos) 
 c) cluster Number Counts + Cluster Weak Lensing (clusterN_clusterWL)
 d) 3x2pt (all_2pt)
 e) 3x2pt+cluster Number Counts+Cluster Weak Lensing (LSST_Y10_all_2pt_clusterN_clusterWL_fid_nosys)
@@ -70,7 +70,7 @@ Covariances:
 
 Inverse Covariances: 
 - The dimensions correspond to those of the data vectors (scale cuts are not taken out, but have been incorporated as described above)
-- The columns correspond to:  index 1 | index 2 | Gaussian+NonGaussian cov
+- The columns correspond to:  index 1 | index 2 | inverse Gaussian+NonGaussian cov
 --------------------------------------------------------
 
 
