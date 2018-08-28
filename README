@@ -1,0 +1,104 @@
+
+
+##### Aug 28, 2018, Tim Eifler, please send comments, critique to timeifler@gmail.com #########
+
+This readme details the file format of covariances, Fisher matrices, data vectors, and redshift distributions that entered the WL+LSS+CL analysis and it explains how to run the corresponding Fisher forecasts. It also explains how to create the DESC-SRD individual and multi-probe plots for Y1 and Y10, including the SN and SL results (Fig H2 in the DESC-SRD).
+
+--------------------------------------------------------
+A) Create Figure H2
+- Download the chains from "URL TO TARBALL HERE" and store in subfolder like.
+- Ensure that python 2.7, matplotlib, and chainconsumer are installed. 
+- Type "python plot.py"
+--------------------------------------------------------
+
+
+
+--------------------------------------------------------
+B) Data vector filename conventions:
+The data vectors are created for the the following probe combinations (indicated in their filename): 
+a) shear-shear (shear-shear) 
+b) position-position (pos-pos) 
+c) cluster Number Counts + Cluster Weak Lensing (clusterN_clusterWL)
+d) 3x2pt (all_2pt)
+e) 3x2pt+cluster Number Counts+Cluster Weak Lensing (LSST_Y10_all_2pt_clusterN_clusterWL_fid_nosys)
+
+For each of these probe combination cases we create several Y1 and Y10 data vectors: 
+a) fiducial data vector (_fid) 
+b) contaminated by shear calibration (_sc0006_zdep)
+c) contaminated by photo-z mean bias (_sph005_lph_003)
+d) contaminated by photo-z sigma bias (_sigph2x)
+--------------------------------------------------------
+
+
+
+--------------------------------------------------------
+C) Data vector file format
+The data vector is ordered as follows (for given subsets, please exclude the probes not considered from the ordering):
+- shear-shear: 
+	* the tomographic bin combinations are ordered as z11, z12, z13,..., z15, z22, z23,...z55)
+	* each tomographic bin consists of 20 l-values ranging from 20-15000, with l-values >3000 being set to zero
+	* the exact theta values can be found in "datav/theta-values"
+- galaxy-galaxy lensing: 
+	*the lens-source bin combinations are only included in the data vector if the lens bin is at lower redshift than the sources (we allow for the lens bin to overlap at 10%). Given the different redshift distributions of Y1 and Y10 and the fact that Y1 and Y10 have different numbers of lens bins (10 for Y10 and 5 for Y1). The accepted lens-source pairs differ. The exact lens-source combinations that are accepted can be found in "datav/gglensing_zbin_Y10" and "datav/gglensing_zbin_Y1"
+	* theta values correspond to the shear-shear case, but with the LSS cut of excluding l-bins for which k>0.3
+- galaxy clustering (pos-pos): 
+	* only auto-bins are considered; the tomographic bin combinations are ordered as z11, z22, z33, z44, z55,...)
+	* similar to shear-shear we consider 20 l-bins but cut out bins where k>0.3
+- Cluster Number Counts:
+	* binned in 3 (for Y1) and 4 (for Y10) tomographic bins
+	* each tomogrpahic bin is again binned in 5 richness bins (Richness bin 0: 2.000000e+01 - 3.000000e+01, Richness bin 1: 3.000000e+01 - 4.500000e+01, Richness bin 2: 4.500000e+01 - 7.000000e+01, Richness bin 3: 7.000000e+01 - 1.200000e+02, Richness bin 4: 1.200000e+02 - 2.200000e+02
+- Cluster Weak Lensing 
+	* for Y1 6 valid combinations of clusters (foreground) and sources (background exist), for Y10 we have 23 such tomographic power spectra. 
+	* each of these power spectra is again divided into 5 richness bins
+	* each richness bin has 5 l-bins, corresponding to the last 5 l-bins in "datav/ell-values" 
+--------------------------------------------------------
+
+
+
+
+--------------------------------------------------------
+D) Covariance file format
+In the folder "cov/" the user can find the original covariance and the inverse covariances for the various probe combinations for Y1 and Y10
+
+Covariances:
+- The columns mean the following: index 1 | index 2 | ell_1 | ell_2 | z1 | z2 | z3 | z4 | cov_Gauss | cov_Non-Gauss |
+- These covariances do not yet include cuts. 
+- In order to invert properly and still maintain the same dimensions as the data vector one has to: 
+	* remove the corresponding off-diagonal elements of the rows+columns that are excluded
+	* invert matrix
+	* where scales are to be excluded, exclude the corresponding data points and inverse covariance rows+columns entirely from the chi^2 calculation
+
+Inverse Covariances: 
+- The dimensions correspond to those of the data vectors (scale cuts are not taken out, but have been incorporated as described above)
+- The columns correspond to:  index 1 | index 2 | Gaussian+NonGaussian cov
+--------------------------------------------------------
+
+
+--------------------------------------------------------
+E) Redshift distributions:
+- The folder "zdistris/" contains 4 redshift distributions, corresponding to the Y1 and Y10, lens and source distributions
+- The columns are z_min |z_mid | z_max | dn/dz (normalized such that area is 1 under the curve)
+--------------------------------------------------------
+
+
+--------------------------------------------------------
+F) Fisher matrices
+- In the folder "Fisher/" we store two files, corresponding to the Fisher matrices of WL+LSS+CL for the cosmological parameters only "Fisher_cosmo" and when including the self-calibratable systematics "Fisher_all".
+- For the Fisher_cosmo, the  order of the parameters is Omega_m, sigma_8, n_s, w0, wa, Omega_b, h0
+- For Fisher_all the first 7 columns also correspond to these 7 parameters, however the self-calibratable systematics parameters that are appended to the cosmological parameters are different from probe to probe:
+	* shear-shear: 7 cosmological parameters and 4 IA parameters, specifically, IA amplitude "A", IA luminosity scaling "beta", IA redshift scaling "eta", IA redshift scaling at high-z "eta_high-z"
+	* position-position: 7 cosmological parameters and 5 galaxy bias parameters for Y1 and 10 galaxy bias parameters for Y10
+	* cluster Number Counts + Cluster Weak Lensing: 7 cosmological parameters and 3 parameters to describe mean Mass-Observable-Relation parameters (A, B, C as explained in Eq. 7 in the DESC-SRD) and 3 parameters to describe the mass dependent scatter (sigma_0, q_m, qz as explained in Eq. 8 in the DESC-SRD) 
+	* 3x2pt: 7 cosmological parameters and, the 5 (Y1) or 10 (Y10) bias parameters and the 4 IA parameters
+	* 3x2pt+cluster Number Counts+Cluster Weak Lensing: 7 cosmological parameters and, the 5 (Y1) or 10 (Y10) bias parameters, the 4 IA parameters and the 6 MOR parameters as described above
+--------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
