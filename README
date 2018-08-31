@@ -4,53 +4,82 @@
 
 This readme details the file format of covariances, Fisher matrices, data vectors, and redshift distributions that entered the WL+LSS+CL analysis and it explains how to run the corresponding Fisher forecasts. It also explains how to create the DESC-SRD individual and multi-probe plots for Y1 and Y10, including the SN and SL results (Fig H2 in the DESC-SRD).
 
+
 --------------------------------------------------------
-A) Create Figure H2
+Workflow to compute Fisher matrices, FoMs, and requirements:
+This repo contains a lite version of cosmolike which enables you to compute
+- contaminated and fiducial data vectors for WL, LSS, CL, 3x2pt, 3x2pt+clusterWL+clusterN
+- fisher matrices (cosmology only and cosmology+self-calibratable systematics) 
+- DETF figure of merit, 
+- Parameter bias calculations to estimate the impact of a contaminated data vector given LSST Y1 or Y10 constraining power (as outlined in Sect C2 of the DESC-SRD v1 document (Eq. 2))
+
+In order to reproduce the DESC-SRD calculations, please:
+- clone the repo
+- type "make cosmolike"
+- type "./rundata.sh"
+- type "./runfisher.sh"
+ 
+Please make sure to have a gsl version 1.15 or higher installed and make sure to enable the execution of the ".sh" files via "chmod 755 *sh"
+
+FOR EXPERTS ONLY: In order to change the level of contamination, you will have to edit the c-code, specifically the "compute_data_vector" arguments in the like_fourier.c file (line 825, 826, 827, 840 , 841, 842). The meaning of the arguments can be inferred from line 698, just quickly: Omega_m, sigma_8, n_s, w0, wa, Omega_b, H0, 2x modified gravity, 10x bias parameters, 10x source photo-z mean, 1x source photo-z sigma, 10x lens photo-z mean, 1x lens photo-z sigma, 10x shear calibration, 10x IA, 6x Cluster Mass observable relation. Not all of the are allowed to be changed given the SRD settings, e.g. only the first 5 shear calibration parameters are active. 
+
+"./rundata.sh" creates the data vectors stored in the directory "datav/". "./runfisher.sh" computes the Fisher matrices for cosmology only ("Fishers/Fisher_cosmo.txt") and for cosmology+selfcalibratable systematics ("Fishers/Fisher_all.txt"), and the DETF-FoM and requirements stored in "Fishers/FoM.txt".
+
+Note that all of these products are already computed and stored for the exact DESC-SRD settings. Below we describe the data products and how to generate the plot showing the individual and joint constraining power for LSST Y10 and Y1.
+--------------------------------------------------------
+
+
+
+
+--------------------------------------------------------
+A) Create Figure H2 from existing chains
 - Download the chains from "https://zenodo.org/communities/lsst-desc" and store in subfolder "like/".
 - Ensure that python 2.7, matplotlib, and chainconsumer are installed 
-- Type "python plot.py"
+- Type "python plot_DESC-SRD_FIG_H2.py"
 --------------------------------------------------------
 
 
 
 --------------------------------------------------------
-B) Data vector filename conventions:
+B) Data vector filename conventions (all data vectors are stored in directory "datav/")
 The data vectors are created for the the following probe combinations (indicated in their filename): 
 a) shear-shear (shear-shear) 
 b) position-position, aka galaxy clustering (pos-pos) 
 c) cluster Number Counts + Cluster Weak Lensing (clusterN_clusterWL)
-d) 3x2pt (all_2pt)
-e) 3x2pt+cluster Number Counts+Cluster Weak Lensing (LSST_Y10_all_2pt_clusterN_clusterWL_fid_nosys)
+d) 3x2pt (3x2pt)
+e) 3x2pt+cluster Number Counts+Cluster Weak Lensing (3x2pt_clusterN_clusterWL)
 
 For each of these probe combination cases we create several Y1 and Y10 data vectors: 
 a) fiducial data vector (_fid) 
-b) contaminated by shear calibration (_sc0006_zdep)
-c) contaminated by photo-z mean bias (_sph005_lph_003)
-d) contaminated by photo-z sigma bias (_sigph2x)
+b) contaminated by shear calibration (_shear_calibration)
+c) contaminated by photo-z mean bias (_mean_photo-z)
+d) contaminated by photo-z sigma bias (_sigma_photo-z)
+
+Note that for "pos-pos" there is no data vector with contaminating shear calibration uncertainties for obvious reasons.
 --------------------------------------------------------
 
 
 
 --------------------------------------------------------
-C) Data vector file format
+C) Data vector file format (data vectors are all stored in "data/")
 The data vector is ordered as follows (for given subsets, please exclude the probes not considered from the ordering):
 - shear-shear: 
 	* the tomographic bin combinations are ordered as z11, z12, z13,..., z15, z22, z23,...z55)
 	* each tomographic bin consists of 20 l-values ranging from 20-15000, with l-values >3000 being set to zero
-	* the exact theta values can be found in "datav/theta-values"
+	* the exact theta values can be found in "ell-values"
 - galaxy-galaxy lensing: 
-	*the lens-source bin combinations are only included in the data vector if the lens bin is at lower redshift than the sources (we allow for the lens bin to overlap at 10%). Given the different redshift distributions of Y1 and Y10 and the fact that Y1 and Y10 have different numbers of lens bins (10 for Y10 and 5 for Y1). The accepted lens-source pairs differ. The exact lens-source combinations that are accepted can be found in "datav/gglensing_zbin_Y10" and "datav/gglensing_zbin_Y1"
-	* theta values correspond to the shear-shear case, but with the LSS cut of excluding l-bins for which k>0.3
+	*the lens-source bin combinations are only included in the data vector if the lens bin is at lower redshift than the sources (we allow for the lens bin to overlap at 10%). Given the different redshift distributions of Y1 and Y10 and the fact that Y1 and Y10 have different numbers of lens bins (10 for Y10 and 5 for Y1). The accepted lens-source pairs differ. The exact lens-source combinations that are accepted can be found in "gglensing_zbin_Y10" and "gglensing_zbin_Y1"
+	* ell values correspond to the shear-shear case, but with the LSS cut of excluding ell-bins for which k>0.3
 - galaxy clustering (pos-pos): 
 	* only auto-bins are considered; the tomographic bin combinations are ordered as z11, z22, z33, z44, z55,...)
-	* similar to shear-shear we consider 20 l-bins but cut out bins where k>0.3
+	* similar to shear-shear we consider 20 ell-bins but cut out bins where k>0.3
 - Cluster Number Counts:
 	* binned in 3 (for Y1) and 4 (for Y10) tomographic bins
 	* each tomogrpahic bin is again binned in 5 richness bins (Richness bin 0: 2.000000e+01 - 3.000000e+01, Richness bin 1: 3.000000e+01 - 4.500000e+01, Richness bin 2: 4.500000e+01 - 7.000000e+01, Richness bin 3: 7.000000e+01 - 1.200000e+02, Richness bin 4: 1.200000e+02 - 2.200000e+02
 - Cluster Weak Lensing 
 	* for Y1 6 valid combinations of clusters (foreground) and sources (background exist), for Y10 we have 23 such tomographic power spectra. 
 	* each of these power spectra is again divided into 5 richness bins
-	* each richness bin has 5 l-bins, corresponding to the last 5 l-bins in "datav/ell-values" 
+	* each richness bin has 5 ell-bins, corresponding to the last 5 ell-bins in "ell-values" 
 --------------------------------------------------------
 
 
@@ -58,19 +87,20 @@ The data vector is ordered as follows (for given subsets, please exclude the pro
 
 --------------------------------------------------------
 D) Covariance file format
-In the folder "cov/" the user can find the original covariance and the inverse covariances for the various probe combinations for Y1 and Y10
+In the folder "cov/" the user can find the multi-probe original covariances for Y1 and Y10"*_3x2pt_clusterN_clusterWL_cov" and the inverse covariances for the various probe combinations. Note that the covariance mapping onto the "shear-shear" data vector is named "*shear*" only and that the covariance mapping onto the "pos_pos" data vector is named "*clustering*". Otherwise the name conventions of the data vectors hold.
 
 Covariances:
-- The columns mean the following: index 1 | index 2 | ell_1 | ell_2 | z1 | z2 | z3 | z4 | cov_Gauss | cov_Non-Gauss |
-- These covariances do not yet include cuts. 
+- The columns contain the following information: cov index 1 | cov index 2 | ell_1 | ell_2 | z1 | z2 | z3 | z4 | cov_Gauss | cov_Non-Gauss | 
+- Note that cov_Non-Gauss does not also include cov_Gauss. In order to obtain the full cov, both must be added.
+- These covariances do not yet include cuts. These are applied later.
 - In order to invert properly and still maintain the same dimensions as the data vector one has to: 
 	* remove the corresponding off-diagonal elements of the rows+columns that are excluded
 	* invert matrix
-	* where scales are to be excluded, exclude the corresponding data points and inverse covariance rows+columns entirely from the chi^2 calculation
+	* where scales are to be excluded, exclude the corresponding data points and inverse covariance rows+columns
 
 Inverse Covariances: 
 - The dimensions correspond to those of the data vectors (scale cuts are not taken out, but have been incorporated as described above)
-- The columns correspond to:  index 1 | index 2 | inverse Gaussian+NonGaussian cov
+- The columns correspond to:  index 1 | index 2 | inverse (Gaussian+NonGaussian cov)
 --------------------------------------------------------
 
 
@@ -83,7 +113,7 @@ E) Redshift distributions:
 
 --------------------------------------------------------
 F) Fisher matrices
-- In the folder "Fisher/" we store two files, corresponding to the Fisher matrices of WL+LSS+CL for the cosmological parameters only "Fisher_cosmo" and when including the self-calibratable systematics "Fisher_all".
+- In the folder "Fishers/" we store two files, corresponding to the Fisher matrices of WL+LSS+CL for the cosmological parameters only "Fisher_cosmo" and when including the self-calibratable systematics "Fisher_all".
 - For the Fisher_cosmo, the  order of the parameters is Omega_m, sigma_8, n_s, w0, wa, Omega_b, h0
 - For Fisher_all the first 7 columns also correspond to these 7 parameters, however the self-calibratable systematics parameters that are appended to the cosmological parameters are different from probe to probe:
 	* shear-shear: 7 cosmological parameters and 4 IA parameters, specifically, IA amplitude "A", IA luminosity scaling "beta", IA redshift scaling "eta", IA redshift scaling at high-z "eta_high-z"

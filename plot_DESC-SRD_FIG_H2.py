@@ -64,21 +64,21 @@ def sixchain_multi_plot(filename, out, chainnames, paranames,plotrange):
 
 
 
-filename=["/like/like_LSST_SRD_Y1_CL_Aug_13","/like/like_LSST_SRD_Y1_SL_Aug_13","/like/like_LSST_SRD_stage3_Aug_13","/like/like_LSST_SRD_Y1_SN_Aug_13","/like/like_LSST_SRD_Y1_3x2_Aug_13","/like/like_LSST_SRD_Y1_ALL_Aug_13"]
+filename=["/like/Y1_CL","/like/Y1_SL","/like/stage3","/like/Y1_SN","/like/Y1_3x2","/like/Y1_ALL"]
 chainnames=[r"Clusters Y1",r"SL Y1",r"Stage III",r"SN Y1",r"3x2pt Y1",r"LSST all+Stage III"]
 paranames=[r"$\Delta w_0$", r"$\Delta w_a$"]
 plotrange=[(-0.8,0.8),(-2.5,2.5)]
-sixchain_multi_plot(filename,"LSST_Y1.pdf",chainnames,paranames,plotrange)
+sixchain_multi_plot(filename,"DESC_SRD_LSST_Y1.pdf",chainnames,paranames,plotrange)
 
-filename=["/like/like_LSST_SRD_Y10_CL_Aug_13","/like/like_LSST_SRD_Y10_SL_Aug_13","/like/like_LSST_SRD_stage3_Aug_13","/like/like_LSST_SRD_Y10_SN_Aug_13","/like/like_LSST_SRD_Y10_3x2_Aug_13","/like/like_LSST_SRD_Y10_ALL_Aug_13"]
+filename=["/like/Y10_CL","/like/Y10_SL","/like/stage3","/like/Y10_SN","/like/Y10_3x2","/like/Y10_ALL"]
 chainnames=[r"Clusters Y10",r"SL Y10",r"Stage III",r"SN Y10",r"3x2pt Y10",r"LSST all+Stage III"]
 paranames=[r"$\Delta w_0$", r"$\Delta w_a$"]
 plotrange=[(-0.8,0.8),(-2.5,2.5)]
-sixchain_multi_plot(filename,"LSST_Y10.pdf",chainnames,paranames,plotrange)
+sixchain_multi_plot(filename,"DESC_SRD_LSST_Y10.pdf",chainnames,paranames,plotrange)
 
-filename=["/like/like_LSST_SRD_Y10_CL_Aug_13","/like/like_LSST_SRD_Y10_SL_Aug_13","/like/like_LSST_SRD_stage3_Aug_13","/like/like_LSST_SRD_Y10_SN_Aug_13","/like/like_LSST_SRD_Y10_3x2_Aug_13","/like/like_LSST_SRD_Y10_ALL_Aug_13"]
+filename=["/like/Y10_CL","/like/Y10_SL","/like/stage3","/like/Y10_SN","/like/Y10_3x2","/like/Y10_ALL"]
 chainnames=[r"Clusters Y10",r"SL Y10",r"Stage III",r"SN Y10",r"3x2pt Y10",r"LSST all+Stage III"]
 paranames=[r"$\Delta w_0$", r"$\Delta w_a$"]
 plotrange=[(-0.5,0.5),(-1.5,1.5)]
-sixchain_multi_plot(filename,"LSST_Y10_zoom.pdf",chainnames,paranames,plotrange)
+sixchain_multi_plot(filename,"DESC_SRD_LSST_Y10_zoom.pdf",chainnames,paranames,plotrange)
 

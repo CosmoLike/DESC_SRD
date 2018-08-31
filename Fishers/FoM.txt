@@ -1,0 +1,89 @@
+
+mode= Y1 3x2pt shear_calibration 
+
+step_width=5.000000e-01 FoM=2.735775e+01 Ratio=2.093065e+00
+step_width=5.000000e-01 FoM2=3.732865e+01 Ratio2=1.584148e+00
+mode= Y1 3x2pt mean_photo-z 
+
+step_width=5.000000e-01 FoM=2.735775e+01 Ratio=1.536134e+00
+step_width=5.000000e-01 FoM2=3.732865e+01 Ratio2=2.319251e-01
+mode= Y1 3x2pt sigma_photo-z 
+
+step_width=5.000000e-01 FoM=2.735775e+01 Ratio=1.226925e-01
+step_width=5.000000e-01 FoM2=3.732865e+01 Ratio2=1.773234e-01
+mode= Y1 shear_shear shear_calibration 
+
+step_width=5.000000e-01 FoM=1.310726e+01 Ratio=1.889331e+00
+step_width=5.000000e-01 FoM2=1.918222e+01 Ratio2=1.355292e+00
+mode= Y1 shear_shear mean_photo-z 
+
+step_width=5.000000e-01 FoM=1.310726e+01 Ratio=5.138521e-01
+step_width=5.000000e-01 FoM2=1.918222e+01 Ratio2=1.627555e-01
+mode= Y1 shear_shear sigma_photo-z 
+
+step_width=5.000000e-01 FoM=1.310726e+01 Ratio=4.830507e-01
+step_width=5.000000e-01 FoM2=1.918222e+01 Ratio2=4.494883e-01
+mode= Y1 pos_pos mean_photo-z 
+
+step_width=5.000000e-01 FoM=8.432376e+00 Ratio=1.455289e+00
+step_width=5.000000e-01 FoM2=1.257707e+01 Ratio2=5.294456e-01
+mode= Y1 pos_pos sigma_photo-z 
+
+step_width=5.000000e-01 FoM=8.432376e+00 Ratio=5.955884e+00
+step_width=5.000000e-01 FoM2=1.257707e+01 Ratio2=1.243799e+01
+mode= Y1 clusterN_clusterWL shear_calibration 
+
+step_width=5.000000e-01 FoM=8.164981e+00 Ratio=3.870848e+00
+step_width=5.000000e-01 FoM2=1.087472e+01 Ratio2=6.921872e+00
+mode= Y1 clusterN_clusterWL mean_photo-z 
+
+step_width=5.000000e-01 FoM=8.164981e+00 Ratio=4.266201e-01
+step_width=5.000000e-01 FoM2=1.087472e+01 Ratio2=6.386646e-01
+mode= Y1 clusterN_clusterWL sigma_photo-z 
+
+step_width=5.000000e-01 FoM=8.164981e+00 Ratio=1.318294e+00
+step_width=5.000000e-01 FoM2=1.087472e+01 Ratio2=1.894004e+00
+mode= Y10 3x2pt shear_calibration 
+
+step_width=5.000000e-01 FoM=6.864034e+01 Ratio=5.500295e-01
+step_width=5.000000e-01 FoM2=8.668672e+01 Ratio2=5.577771e-01
+mode= Y10 3x2pt mean_photo-z 
+
+step_width=5.000000e-01 FoM=6.864034e+01 Ratio=1.608164e-01
+step_width=5.000000e-01 FoM2=8.668672e+01 Ratio2=1.141189e-01
+mode= Y10 3x2pt sigma_photo-z 
+
+step_width=5.000000e-01 FoM=6.864034e+01 Ratio=4.696456e-02
+step_width=5.000000e-01 FoM2=8.668672e+01 Ratio2=6.454528e-02
+mode= Y10 shear_shear shear_calibration 
+
+step_width=5.000000e-01 FoM=3.462065e+01 Ratio=9.232854e-01
+step_width=5.000000e-01 FoM2=5.190920e+01 Ratio2=7.029374e-01
+mode= Y10 shear_shear mean_photo-z 
+
+step_width=5.000000e-01 FoM=3.462065e+01 Ratio=3.563135e-01
+step_width=5.000000e-01 FoM2=5.190920e+01 Ratio2=1.435868e-01
+mode= Y10 shear_shear sigma_photo-z 
+
+step_width=5.000000e-01 FoM=3.462065e+01 Ratio=3.504622e-01
+step_width=5.000000e-01 FoM2=5.190920e+01 Ratio2=3.539419e-01
+mode= Y10 pos_pos mean_photo-z 
+
+step_width=5.000000e-01 FoM=9.148073e+00 Ratio=1.801550e+00
+step_width=5.000000e-01 FoM2=1.383033e+01 Ratio2=4.939992e-01
+mode= Y10 pos_pos sigma_photo-z 
+
+step_width=5.000000e-01 FoM=9.148073e+00 Ratio=3.527632e+00
+step_width=5.000000e-01 FoM2=1.383033e+01 Ratio2=6.118595e+00
+mode= Y10 clusterN_clusterWL shear_calibration 
+
+step_width=5.000000e-01 FoM=1.711888e+01 Ratio=1.160985e+00
+step_width=5.000000e-01 FoM2=2.259387e+01 Ratio2=1.622418e+00
+mode= Y10 clusterN_clusterWL mean_photo-z 
+
+step_width=5.000000e-01 FoM=1.711888e+01 Ratio=1.076686e-01
+step_width=5.000000e-01 FoM2=2.259387e+01 Ratio2=1.589363e-01
+mode= Y10 clusterN_clusterWL sigma_photo-z 
+
+step_width=5.000000e-01 FoM=1.711888e+01 Ratio=5.317245e-01
+step_width=5.000000e-01 FoM2=2.259387e+01 Ratio2=6.443009e-01
