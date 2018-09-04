@@ -142,6 +142,7 @@ F) Fisher matrices and Figure of Merit calculations
 	* 3x2pt: 7 cosmological parameters and, the 5 (Y1) or 10 (Y10) bias parameters and the 4 IA parameters
 	* 3x2pt+cluster Number Counts+Cluster Weak Lensing: 7 cosmological parameters and, the 5 (Y1) or 10 (Y10) bias parameters, the 4 IA parameters and the 6 MOR parameters as described above
 - All "Fisher*.txt" files contain the Fisher matrices in a convenient np.array format, which can be immediately copied and pasted into e.g. an ipython notebook.
+- We also store all Fisher matrices (including the Stage 3 with and without w0wa information) as npy files in the "Fishers" folder
 - The FoM.txt file contains the DETF FoMs for the different science cases (denoted as "mode" in the file) followed by the value of "r" that is derived from the parameter biases that occur due to a systematic (please see Eq. 2 in Sect. C2 of the DESC SRD for the exact definition). 
 - We compute FoMs and "r" values for 2 cases: including and excluding Stage 3 priors (without their constraining power on w0 and wa).
 
