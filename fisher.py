@@ -28,7 +28,7 @@ def read_invcov(cov_filename):
 def init_Y1_shear():
     file_source_z = os.path.join(dirname, "zdistris/zdistri_model_z0=1.300000e-01_beta=7.800000e-01_Y1_source")
     file_lens_z = os.path.join(dirname, "zdistris/zdistri_model_z0=2.600000e-01_beta=9.400000e-01_Y1_lens")
-    cov_file = os.path.join(dirname, "cov/Y1_shear_inv")
+    cov_file = os.path.join(dirname, "cov/Y1_shear_shear_inv")
     initcosmo()
     initfisherprecision()
     initbins(20,20.0,15000.0,3000.0,21.0,5,5)
@@ -44,7 +44,7 @@ def init_Y1_shear():
 def init_Y10_shear():
     file_source_z = os.path.join(dirname, "zdistris/zdistri_model_z0=1.100000e-01_beta=6.800000e-01_Y10_source")
     file_lens_z = os.path.join(dirname, "zdistris/zdistri_model_z0=2.800000e-01_beta=9.000000e-01_Y10_lens")
-    cov_file = os.path.join(dirname, "cov/Y10_shear_inv")
+    cov_file = os.path.join(dirname, "cov/Y10_shear_shear_inv")
     initcosmo()
     initfisherprecision()
     initbins(20,20.0,15000.0,3000.0,21.0,5,5)
@@ -94,7 +94,7 @@ def init_Y10():
 def init_Y1_clustering():
     file_source_z = os.path.join(dirname, "zdistris/zdistri_model_z0=1.300000e-01_beta=7.800000e-01_Y1_source")
     file_lens_z = os.path.join(dirname, "zdistris/zdistri_model_z0=2.600000e-01_beta=9.400000e-01_Y1_lens")
-    cov_file = os.path.join(dirname, "cov/Y1_clustering_inv")
+    cov_file = os.path.join(dirname, "cov/Y1_pos_pos_inv")
     initcosmo()
     initfisherprecision()
     initbins(20,20.0,15000.0,3000.0,21.0,5,5)
@@ -110,7 +110,7 @@ def init_Y1_clustering():
 def init_Y10_clustering():
     file_source_z = os.path.join(dirname, "zdistris/zdistri_model_z0=1.100000e-01_beta=6.800000e-01_Y10_source")
     file_lens_z = os.path.join(dirname, "zdistris/zdistri_model_z0=2.800000e-01_beta=9.000000e-01_Y10_lens")
-    cov_file = os.path.join(dirname, "cov/Y10_clustering_inv")
+    cov_file = os.path.join(dirname, "cov/Y10_pos_pos_inv")
     initcosmo()
     initfisherprecision()
     initbins(20,20.0,15000.0,3000.0,21.0,5,10)
@@ -370,8 +370,8 @@ for i in range(0,1):
     FM=FM+Priormat
     FoM=FM_analyze(FM,FM_params)
     Ratio=FM_parameter_bias(datav_biased, datav_fid, invcov,FM,derivs,FM_params)
-    f.write('\n' + 'mode= %s %s %s \n'%(sys.argv[1],sys.argv[2],sys.argv[3]))
-    f.write('\n' + 'step_width=%e FoM=%e Ratio=%e'%(step_width,FoM,Ratio))
+    f.write('\n' + 'mode= %s %s %s'%(sys.argv[1],sys.argv[2],sys.argv[3]))
+    f.write('\n' + 'FoM(excl. S3(no w0wa) prior)=%e r=%e'%(FoM,Ratio))
     
     if(sys.argv[3]=='mean_photo-z'): h.write('\n' + 'mode= %s %s \n'%(sys.argv[1],sys.argv[2]))
     for i in range(0,FM.shape[0]):
@@ -444,7 +444,7 @@ for i in range(0,1):
     FM=FM+Priormat
     FoM2=FM_analyze(FM,FM_params)
     Ratio2=FM_parameter_bias(datav_biased, datav_fid, invcov,FM,derivs,FM_params)
-    f.write('\n' + 'step_width=%e FoM2=%e Ratio2=%e'%(step_width,FoM2,Ratio2))
+    f.write('\n' + 'FoM(incl. S3(no w0wa) prior)=%e r=%e \n'%(FoM2,Ratio2))
 
 f.close()
 if(sys.argv[3]=='mean_photo-z'): g.close()
