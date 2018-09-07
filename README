@@ -2,7 +2,7 @@
 
 ##### Aug 28, 2018, Tim Eifler, please send comments, critique to timeifler@gmail.com #########
 
-This readme details the file format of covariances, Fisher matrices, data vectors, and redshift distributions that entered the WL+LSS+CL analysis and it explains how to run the corresponding Fisher forecasts. It also explains how to create the DESC-SRD individual and multi-probe plots for Y1 and Y10, including the SN and SL results (Fig H2 in the DESC-SRD). 
+This readme details the file format of covariances, Fisher matrices, data vectors, and redshift distributions that entered the WL+LSS+CL analysis and it explains how to run the corresponding Fisher forecasts. It also explains how to create the DESC-SRD individual and multi-probe plots for Y1 and Y10, including the SN and SL results (Fig G2 in the DESC-SRD). 
 
 --------------------------------------------------------
 Workflow to compute Fisher matrices, FoMs, and requirements:
